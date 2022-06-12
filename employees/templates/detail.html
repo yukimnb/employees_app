@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% load datedelta %}
+
+{% block title %}従業員詳細{% endblock %}
+
+{% block contents %}
+<div class="container">
+  <div class="row">
+    <div class="col-4" style="margin: 1.5rem;">
+      {% if object.photo %}
+      <img class="rounded-circle" src="{{ object.photo.url }}" alt="" width="180" height="180">
+      {% else %}
+      <img class="rounded-circle" src="{% static 'img/Anonymous.jpg' %}" alt="" width="180" height="180">
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="container">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">名前</th>
+        <td>{{ object.name }}</td>
+      </tr>
+      <tr>
+        <th scope="row">フリガナ</th>
+        <td>{% if object.sub_name is not None %}{{ object.sub_name }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">役職</th>
+        <td>{% if object.post is not None %}{{ object.post }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">性別</th>
+        <td>{% if object.gender is not None %}{{ object.gender }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">年齢</th>
+        <td>{% if object.age is not None %}{{ object.age }} 歳{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">生年月日</th>
+        <td>{% if object.birthday is not None %}{{ object.birthday }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">住所</th>
+        <td>{% if object.address is not None %}{{ object.address }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">携帯番号</th>
+        <td>{% if object.phone is not None %}{{ object.phone }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">配属先</th>
+        <td>{% if object.assignment is not None %}{{ object.assignment }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">TEAM</th>
+        <td>{% if object.team is not None %}{{ object.team }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">所持資格</th>
+        <td>{% if object.license is not None %}{{ object.license }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">経験年数</th>
+        <td>{% if object.experience is not None %}{{ object.experience }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">勤続月数</th>
+        <td>{{ object.joined_date | month_delta }}か月</td>
+      </tr>
+      <tr>
+        <th scope="row">入社日</th>
+        <td>{{ object.joined_date }}</td>
+      </tr>
+      <tr>
+        <th scope="row">退社日</th>
+        <td>{% if object.retired_date is not None %}{{ object.retired_date }}{% endif %}</td>
+      </tr>
+      <tr>
+      <th scope="row">人事評価</th>
+      <td>{% if object.evaluation is not None %}{{ object.evaluation }}{% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row">作成日時</th>
+        <td>{{ object.created_at }}</td>
+      </tr>
+      <tr>
+        <th scope="row">更新日時</th>
+        <td>{{ object.updated_at }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row justify-content-center my-4">
+    <a class="btn btn-outline-secondary" href="{% url 'employees:list' %}" role="button">戻る</a>
+    <a class="btn btn-secondary ml-4" href="{% url 'employees:update' object.pk %}" role="button">編集</a>
+    <a class="btn btn-danger ml-4" href="{% url 'employees:delete' object.pk %}" role="button">削除</a>
+  </div>
+</div>
+{% endblock %}

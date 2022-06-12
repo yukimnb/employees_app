@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}従業員一覧{% endblock %}
+
+{% block contents %}
+<div class="container">
+  <div class="row justify-content-end mb-4">
+    <div class="col">
+      <a class="btn btn-primary float-right" href="{% url 'employees:create' %}" role="button">新規作成</a>
+    </div>
+  </div>
+  <div class="row justify-content-start">
+    {% for employee in employee_list %}
+    <div class="col-sm-6 col-md-4 card align-items-center text-center border-0" style="max-width: 25rem;">
+      {% if employee.photo %}
+      <img class="rounded-circle" src="{{ employee.photo.url }}" alt="" width="150" height="150">
+      {% else %}
+      <img class="rounded-circle" src="{% static 'img/Anonymous.jpg' %}" alt="" width="150" height="150">
+      {% endif %}
+      <div class="card-body">
+        <h4 class="card-title">{{ employee.name}}</h4>
+        <p class="card-text">
+          {% if employee.assignment is not None %}
+          {{ employee.assignment }}
+          {% else %}
+          未入力
+          {% endif %}</p>
+        <p class="card-text">
+          {% if employee.post is not None %}
+          {{ employee.post }}
+          {% else %}
+          未入力
+          {% endif %}</p>
+        <p class="card-text">
+            {% if employee.team is not None %}
+            TEAM : {{ employee.team }}
+            {% else %}
+            未入力
+            {% endif %}</p>
+        <a class="btn btn-secondary" href="{% url 'employees:detail' employee.pk %}" role="button">詳細</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

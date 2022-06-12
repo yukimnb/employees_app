@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}従業員編集{% endblock %}
+
+{% block contents %}
+<div class="container">
+  <div class="row">
+    <div class="col-4" style="margin: 1.5rem;">
+      {% if object.photo %}
+      <img class="rounded-circle" src="{{ object.photo.url }}" alt="" width="150" height="150">
+      {% else %}
+      <img class="rounded-circle" src="{% static 'img/Anonymous.jpg' %}" alt="" width="150" height="150">
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="container">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+    <div class="form-group row">
+      {% if field.name == "name" or field.name == "joined_date" %}
+      <label for="{{ field.id_for_label }}" class="d-flex col-md-2 col-form-label">{{ field.label }}<span
+          class="badge badge-danger ml-1 align-self-center">必須</span></label>
+      {% else %}
+      <label for="{{ field.id_for_label }}" class="col-md-2 col-form-label">{{ field.label }}</label>
+      {% endif %}
+
+      {% if field.name == "address" or field.name == "evaluation" %}
+      <div class="col-md-9">
+        {{ field }}
+        {{ field.errors }}
+      </div>
+
+      {% elif field.name == "name" %}
+      <div class="col-md-auto">
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      <div class="col-md-auto">
+        <small class="form-text text-muted">例 : 田中 太郎</small>
+      </div>
+
+      {% elif field.name == "sub_name" %}
+      <div class="col-md-auto">
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      <div class="col-md-auto">
+        <small class="form-text text-muted">例 : タナカ タロウ</small>
+      </div>
+
+      {% elif field.name == "phone" %}
+      <div class="col-md-auto">
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      <div class="col-md-auto">
+        <small class="form-text text-muted">例 : 090-1234-5678</small>
+      </div>
+
+      {% else %}
+      <div class="col-md-auto">
+        {{ field }}
+        {{ field.errors }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <div class="row justify-content-center my-5">
+      <button class="btn btn-primary" type="submit">更新</button>
+      <a class="btn btn-outline-secondary ml-4" href="{% url 'employees:detail' object.pk %}" role="button">キャンセル</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+body {
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+}
+
+.form-group>label {
+    font-weight: bold;
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table td {
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+}
+
+.card-body p {
+    margin-bottom: .5rem;
+}
+
+
+/* LOGIN FORM */
+.form-login {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-login .errorlist {
+    padding: 0;
+    list-style-type: none;
+    list-style-position: outside;
+    color: red;
+}
+
+.form-login .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-login .form-control:focus {
+    z-index: 2;
+}
+
+.form-login input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-login input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
